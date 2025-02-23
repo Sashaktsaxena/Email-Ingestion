@@ -6,22 +6,25 @@ export default function HomePage() {
 
   const fetchEmails = async () => {
     try {
-      console.log("hello");
       const res = await fetch("/api/email-ingestion");
-      console.log("hi");
+      const data = await res.json();
+      console.log("Full Email Details:", data); // Check the response in console
   
-      console.log("Raw Response:", res);
-  
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+      if (data.error) {
+        alert(`Error: ${data.error}`);
+        return;
       }
   
-      const data = await res.json();
-      console.log("Emails:", data);
+      data.forEach((email) => {
+        console.log(`📧 Email ID: ${email.id}`);
+        console.log(`📌 Snippet: ${email.snippet}`);
+        console.log(`📂 Payload:`, email.payload);
+      });
     } catch (error) {
       console.error("Error fetching emails:", error);
     }
   };
+  
   
   
 

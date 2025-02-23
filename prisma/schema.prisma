@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model EmailIngestionConfig {
+  id           String  @id @default(uuid())
+  userId       String  // Linked to NextAuth user
+  provider     String  // "Gmail" or "Outlook"
+  emailAddress String  @unique
+  createdAt    DateTime @default(now())
+
+  emails       EmailMetadata[]
+}
+
+model EmailMetadata {
+  id                String  @id @default(uuid())
+  emailConfigId     String
+  emailConfig       EmailIngestionConfig @relation(fields: [emailConfigId], references: [id])
+
+  fromAddress       String
+  dateReceived      DateTime
+  subject           String
+  attachmentFileName String
+  filePath          String  // Local path to the PDF
+
+  createdAt         DateTime @default(now())
+}
