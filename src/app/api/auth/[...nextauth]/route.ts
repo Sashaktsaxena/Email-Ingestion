@@ -14,15 +14,19 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
+      }
+      if (profile) {
+        token.picture = profile.picture; // ✅ Assign profile picture
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
+      session.user.image = token.picture; // ✅ Assign picture to session
       return session;
     },
   },
