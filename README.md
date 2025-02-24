@@ -1,35 +1,104 @@
-📧 Email PDF Extractor
-This project fetches emails from Outlook using IMAP, extracts attached PDFs, and provides download links in a Next.js frontend.
+# Email PDF Extractor
 
-The pdfs folder is directly in the root directory (D:\email-ingestion\pdfs)
+A Next.js application that fetches emails from Outlook using IMAP, extracts PDF attachments, and provides a web interface for downloading them.
 
-The page.tsx is in this path email-ingestion\src\app\page.tsx
+## 📋 Features
 
+- IMAP integration with Outlook
+- Automatic PDF attachment extraction
+- Next.js frontend with download capabilities
+- Google OAuth authentication
+- Local PDF storage management
 
-🔧 Environment Variables
-Create a .env.local file in the root directory and add:
+## 🚀 Getting Started
 
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=http://localhost:3000
-GMAIL_REFRESH_TOKEN=
-DATABASE_URL=
+### Prerequisites
 
+- Node.js (v14 or higher)
+- npm
+- A Google Cloud Platform account for OAuth credentials
+- Access to an Outlook email account
 
+### Installation
 
+1. Clone the repository:
+```bash
+git clone <your-repo-url>
+cd email-ingestion
+```
 
-✅ Testing Steps
-To confirm PDFs are fetched and downloadable:
-
-Run the project:
-
+2. Install dependencies:
+```bash
 npm install
+```
+
+### Configuration
+
+1. Create a `.env.local` file in the root directory with the following variables:
+
+```env
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+GMAIL_REFRESH_TOKEN=your_gmail_refresh_token
+DATABASE_URL=your_database_url
+```
+
+### Project Structure
+
+```
+email-ingestion/
+├── src/
+│   └── app/
+│       └── page.tsx
+├── pdfs/           # PDF storage directory
+├── .env.local
+└── package.json
+```
+
+## 🔧 Usage
+
+1. Start the development server:
+```bash
 npm run dev
+```
 
+2. The application will be available at:
+- Frontend: `http://localhost:3000`
+- API Endpoint: `http://localhost:3000/api/email-ingestion`
 
-Check API response: Open http://localhost:3000/api//api/email-ingestion in a browser or Postman to verify that email data is fetched successfully.
+### Testing
 
-Check UI: Open http://localhost:3000/ in a browser and ensure emails with PDF attachments are displayed.
+To verify the setup:
 
-The pdfs folder would be generated and the pdf will save when the api is called 
+1. Access the API endpoint in your browser or Postman:
+   ```
+   http://localhost:3000/api/email-ingestion
+   ```
+   This should return email data in JSON format.
+
+2. Visit the frontend:
+   ```
+   http://localhost:3000
+   ```
+   You should see a list of emails with PDF attachments.
+
+3. The PDFs folder will be automatically generated when the API is called, and PDFs will be saved there.
+
+## 📁 PDF Storage
+
+PDFs are stored in the `pdfs` directory at the root of the project:
+```
+D:\email-ingestion\pdfs
+```
+
+## ⚠️ Important Notes
+
+- Ensure your `.env.local` file is properly configured before running the application
+- The PDFs directory is created automatically on first API call
+- Make sure you have proper permissions set for PDF storage directory
+
+## 🤝 Contributing
+
+Feel free to submit issues and enhancement requests.
